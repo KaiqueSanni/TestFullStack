@@ -34,12 +34,11 @@ const Home = () => {
       
   useEffect(() => {
     if (csvData) {
-      // Split CSV data into lines
-      const lines = csvData.split('\n');
-      // Filter lines based on the search term
-      const filteredLines = lines.filter((line) =>
-        line.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      const trimmedSearchTerm = searchTerm.trim(); 
+      const filteredLines = csvData.split('\n').filter((line) => {
+        const lineWithoutSpaces = line.trim();
+        return lineWithoutSpaces.includes(trimmedSearchTerm);
+      });
       setFilteredData(filteredLines);
     }
   }, [csvData, searchTerm]);
